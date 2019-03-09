@@ -40,6 +40,10 @@ class BasicViewController: UITableViewController {
         
         title = "Basic"
 
+        let view = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 320.0, height: 60.0))
+        view.backgroundColor = UIColor.red
+        tableView.tableHeaderView = view
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.allowsSelection = false
         tableView.reorder.delegate = self
@@ -49,7 +53,14 @@ class BasicViewController: UITableViewController {
 
 extension BasicViewController {
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 0
+        }
         return items.count
     }
     
@@ -68,6 +79,11 @@ extension BasicViewController {
 
 extension BasicViewController: TableViewReorderDelegate {
 
+    func tableView(_ tableView: UITableView, canReorderRowAt indexPath: IndexPath) -> Bool
+    {
+        return indexPath.section == 1
+    }
+    
     func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let item = items[sourceIndexPath.row]
         items.remove(at: sourceIndexPath.row)

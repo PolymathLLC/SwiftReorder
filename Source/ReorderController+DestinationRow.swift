@@ -70,7 +70,7 @@ extension ReorderController {
             // bounds, and the new row is not the first row in the table view,
             // it's inserted without animation.
             
-            let cellOverlapsTopBounds = $0.frame.minY < tableView.bounds.minY + 5
+            let cellOverlapsTopBounds = $0.frame.minY < tableView.bounds.minY
             let cellIsFirstCell = tableView.indexPath(for: $0) == IndexPath(row: 0, section: 0)
             
             return !cellOverlapsTopBounds || cellIsFirstCell
