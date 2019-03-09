@@ -319,10 +319,8 @@ public class ReorderController: NSObject {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         cell.contentView.addSubview(contentView)
         
-        NSLayoutConstraint.activate([contentView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
-                                     contentView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
-                                     contentView.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
-                                     contentView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)])
+        cell.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[V]|", options: NSLayoutConstraint.FormatOptions.directionLeadingToTrailing, metrics: nil, views: ["V":contentView]))
+        cell.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[V]|", options: NSLayoutConstraint.FormatOptions.directionLeadingToTrailing, metrics: nil, views: ["V":contentView]))
         
         NSLayoutConstraint(item: contentView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: height).isActive = true
         
