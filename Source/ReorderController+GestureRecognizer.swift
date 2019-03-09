@@ -54,4 +54,11 @@ extension ReorderController: UIGestureRecognizerDelegate {
         return delegate?.tableView(tableView, canReorderRowAt: indexPath) ?? true
     }
     
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view is UIControl {
+            return false
+        }
+        return true
+    }
+    
 }
