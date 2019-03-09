@@ -310,19 +310,24 @@ public class ReorderController: NSObject {
         guard let snapshotView = snapshotView else { return nil }
         
         let cell = UITableViewCell()
-        let height = snapshotView.bounds.height
+        let height = (snapshotView.bounds.height).rounded()
         
-        NSLayoutConstraint(
-            item: cell,
-            attribute: .height,
-            relatedBy: .equal,
-            toItem: nil,
-            attribute: .notAnAttribute,
-            multiplier: 0,
-            constant: height
-        ).isActive = true
+        let contentView = UIView.init()
+        contentView.backgroundColor = UIColor.clear
+        contentView.isHidden = true
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        cell.contentView.addSubview(contentView)
+        
+        NSLayoutConstraint.activate([contentView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                                     contentView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                                     contentView.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                                     contentView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)])
+        
+        NSLayoutConstraint(item: contentView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: height).isActive = true
         
         let hideCell: Bool
+        
         switch spacerCellStyle {
         case .automatic: hideCell = tableView?.style == .grouped
         case .hidden: hideCell = true
