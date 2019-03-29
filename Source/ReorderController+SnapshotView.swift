@@ -31,12 +31,10 @@ extension ReorderController {
         tableView.reloadRows(at: [indexPath], with: .none)
         
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        let cellFrame = tableView.convert(cell.frame, to: superview)
+        cell.layoutIfNeeded()
         
-        UIGraphicsBeginImageContextWithOptions(cell.bounds.size, false, 0)
-        cell.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let cellImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+        let cellFrame = tableView.convert(cell.frame, to: superview)
+        let cellImage = cell.snapshot()
         
         let view = UIImageView(image: cellImage)
         view.frame = cellFrame
@@ -130,3 +128,16 @@ extension ReorderController {
     }
 
 }
+
+extension UIView {
+    
+    func snapshot() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0.0)
+        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        let snapshotImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return snapshotImage
+    }
+    
+}
+
