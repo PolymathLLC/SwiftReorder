@@ -37,6 +37,7 @@ extension ReorderController {
         
         let view = UIImageView(image: cellImage)
         view.frame = cellFrame
+        view.backgroundColor = UIColor.clear
         
         view.layer.masksToBounds = false
         view.layer.opacity = Float(cellOpacity)
@@ -131,7 +132,7 @@ extension ReorderController {
 extension UIView {
     
     func snapshot() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, true, 0.0)
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0.0)
         self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
         let snapshotImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
