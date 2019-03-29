@@ -44,6 +44,10 @@ extension ReorderController {
         newContext.destinationRow = newDestinationRow
         reorderState = .reordering(context: newContext)
         
+        guard let destinationRow = delegate?.tableView(tableView, canReorderRowAt: context.destinationRow, to: newContext.destinationRow), destinationRow else {
+            return
+        }
+        
         delegate?.tableView(tableView, reorderRowAt: context.destinationRow, to: newContext.destinationRow)
         
         tableView.beginUpdates()

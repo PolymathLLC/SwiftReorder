@@ -67,7 +67,7 @@ extension BasicViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 0
+            return 5
         }
         return items.count
     }
@@ -90,6 +90,10 @@ extension BasicViewController: TableViewReorderDelegate {
     func tableView(_ tableView: UITableView, canReorderRowAt indexPath: IndexPath) -> Bool
     {
         return indexPath.section == 1
+    }
+    
+    func tableView(_ tableView: UITableView, canReorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) -> Bool {
+        return (sourceIndexPath.section == 1 && destinationIndexPath.section == 1)
     }
     
     func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
